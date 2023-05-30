@@ -2,15 +2,10 @@
 
 namespace Controller;
 
-class LoginController
+class LoginController extends Controller
 {
-    public function dizer(){
-        return "Olá mundo";
-    }
-
-   static public function oi($msg){
+    public function validateSenha(){
         session_start();
-        echo($msg);
         $_SESSION['email'] = 'mario@mario.com';
         $_SESSION['password'] = 'mario123';
         if($_POST['email'] == $_SESSION['email'] && $_POST['password'] == $_SESSION['password']){
