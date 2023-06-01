@@ -5,7 +5,7 @@ namespace Controller;
 class LoginController extends Controller
 {
     public function getInfoLogin(){
-        $this->validateSenha();
+        $this->getDataAndValidateLogin();
         $this->getViewLogin();
     }
 
@@ -20,7 +20,7 @@ class LoginController extends Controller
         );
     }
 
-    public function validateSenha(){
+    public function getDataAndValidateLogin(){
         session_start();
         $_SESSION['email'] = 'mario@mario.com';
         $_SESSION['password'] = 'mario123';
@@ -34,7 +34,7 @@ class LoginController extends Controller
     }
 
     public function pageRedirect(){
-        
+
     }
 
 }
