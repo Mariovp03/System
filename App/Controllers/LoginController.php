@@ -4,24 +4,13 @@ namespace Controller;
 
 class LoginController extends Controller
 {
-    public function getInfoLogin(){
+    public function index(){
         $this->getDataAndValidateLogin();
         $this->getViewLogin();
     }
 
-    public function getViewLogin(){
-        $pathLoginTreated = str_replace('Controller','View' , __FILE__);
-        echo $this->getView(
-            $pathLoginTreated ,
-            [
-                'email' =>  $_SESSION['email'],
-                'password' => $_SESSION['password']
-            ] 
-        );
-    }
-
     public function getDataAndValidateLogin(){
-        session_start();
+
         $_SESSION['email'] = 'mario@mario.com';
         $_SESSION['password'] = 'mario123';
         if(!empty($_POST)){
@@ -33,10 +22,16 @@ class LoginController extends Controller
         }
     }
 
-    public function pageRedirect(){
-
+    public function getViewLogin(){
+        $pathLoginTreated = PATH_BASE_VIEW . "LoginView.php";
+        echo $this->getView(
+            $pathLoginTreated ,
+            [
+                'email' =>  $_SESSION['email'],
+                'password' => $_SESSION['password']
+            ] 
+        );
     }
-
 }
 
 ?>
