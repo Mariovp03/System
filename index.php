@@ -2,13 +2,12 @@
 require 'config.php';
 require __DIR__ . '/vendor/autoload.php';
 require 'Routes/Router.php';
-
+session_start();
 try{
-       
+    
     $uri = parse_url($_SERVER["REQUEST_URI"])['path'];
-    var_dump($uri);    
+
     $request = $_SERVER['REQUEST_METHOD'];
- 
 
     if(!isset($router[$request])){
         throw new Exception("A rota não existe!");
@@ -18,10 +17,12 @@ try{
         throw new Exception("A rota não existe!");
     }
 
-    $router[$request][$uri];
+    $controller = $router[$request][$uri]; 
+    
+    $controller();
     
 } catch(Exception $e){
 
-    echo $e->getMessage();
+    $e->getMessage();
 
 }

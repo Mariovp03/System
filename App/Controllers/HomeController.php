@@ -5,14 +5,20 @@ namespace Controller;
 class HomeController extends Controller
 {
     public function index(){
-        $this->getData();
+        $this->getDataApiStarWars();
         $this->getViewHome();
     }
 
-    public function getData(){
-        session_start();
-        $_SESSION['nome'] = 'Mário';
-        $_SESSION['sobrenome'] = 'do Vale Pereira';
+    public function getDataApiStarWars(){
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://swapi.dev/api/people/1",
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_RETURNTRANSFER => true
+        ]);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        echo json_decode($response)->name;
     }
 
     public function getViewHome(){
@@ -20,15 +26,13 @@ class HomeController extends Controller
         echo $this->getView(
             $pathHomeTreated ,
             [
-                'nome' =>  $_SESSION['nome'],
-                'sobrenome' => $_SESSION['sobrenome']
+                'nome' =>  'Mário',
+                'sobrenome' => 'Pereira'
             ] 
         );
     }
 
-    public function store(){
-        
-    }
+
 
 }
 

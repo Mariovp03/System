@@ -8,16 +8,17 @@ class LoginController extends Controller
         $this->getDataAndValidateLogin();
         $this->getViewLogin();
     }
-
+    
     public function getDataAndValidateLogin(){
-
         $_SESSION['email'] = 'mario@mario.com';
         $_SESSION['password'] = 'mario123';
+        $_SESSION['action'] = '';
         if(!empty($_POST)){
             $userEmail = $_POST['email'];
             $userPassword = $_POST['password'];
             if($userEmail == $_SESSION['email'] && $userPassword == $_SESSION['password']){
-                echo "Você logou na página";
+                echo("Conectado");
+                $_SESSION['action'] = 'home';
             }
         }
     }
@@ -28,10 +29,10 @@ class LoginController extends Controller
             $pathLoginTreated ,
             [
                 'email' =>  $_SESSION['email'],
-                'password' => $_SESSION['password']
+                'password' => $_SESSION['password'],
+                'action' => $_SESSION['action']
             ] 
         );
     }
 }
-
 ?>
